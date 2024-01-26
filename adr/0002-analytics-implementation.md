@@ -51,12 +51,19 @@ Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is 
     **Cons**:
 
 
-4. Umami
+4. Umami  
+    Umami is an privacy-focused analytics engine that deploys as a web app in a container and requires an existing Postgres or MySQL database store analytics data in. While super simple to deploy, the data provided by Umami would be more useful in the context of tracking sales funnels, turnover rates, etc.
 
     **Pros**:
-
+    - Nice web UI including dashboards and charts
+    - Simple to install in a web client (just works!)
+    - Event data is configurable and there are many customization options
 
     **Cons**:
+    - No heatmaps
+    - Dashboards and charts are pretty "vanilla"
+    - No easy way to retrieve data that would be useful in the air-gap
+
 
 
 ## Decision
