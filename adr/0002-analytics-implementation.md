@@ -4,7 +4,7 @@ Date: 2024-01-25
 
 ## Status
 
-Pending
+ACCEPTED
 
 ## Context
 
@@ -19,8 +19,9 @@ We need to decide on an implementation to go with to provide our behavioral anal
 
 Within the context of this ADR we will evaluate the following:
 
-1. Apache Flagon  
-Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is a Javascript client that tracks events on a web page forwards them to a backend database. We tested this with a Loki deployment in an attempt to use existing tech within the UDS stack.
+1. Apache Flagon
+
+    Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is a Javascript client that tracks events on a web page forwards them to a backend database. We tested this with a Loki deployment in an attempt to use existing tech within the UDS stack.
 
     **Pros**:
     - Event data is highly configurable with Javascript
@@ -36,6 +37,7 @@ Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is 
 
 
 2. Matomo
+
     Popular and full-featured user analytics engine based on PHP and MySQL. Tested with the Bitnami chart. Has a robust plugin system, but many features are behind a paywall (which they liberally advertise).
 
     **Pros**:
@@ -52,6 +54,7 @@ Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is 
     - (Minor) They are mostly european which not everyone likes
 
 3. Plausible
+
     Simple user analytics engine based on Elixir/Phoenix and Postgres. Tested with `docker-compose` and was easy to get up and running. 
 
     **Pros**:
@@ -65,7 +68,8 @@ Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is 
     - (Minor) They are mostly european which not everyone likes
     - No official Helm chart
 
-4. Umami  
+4. Umami
+
     Umami is an privacy-focused analytics engine that deploys as a web app in a container and requires an existing Postgres or MySQL database store analytics data in. While super simple to deploy, the data provided by Umami would be more useful in the context of tracking sales funnels, turnover rates, etc.
 
     **Pros**:
@@ -82,10 +86,8 @@ Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is 
 
 ## Decision
 
-TBD
-<!--The change that we're proposing or have agreed to implement.-->
+Choosing Apache Flagon due to its customizability and flexibility with web analytics data. We recognize that Flagon isn't an out-of-the-box solution and requires a significant time investment to flesh out into an actual UDS package, but we believe the end product will be of higher value than going with a more basic solution.
 
 ## Consequences
 
-TBD
-<!--What becomes easier or more difficult to do and any risks introduced by the change that will need to be mitigated.-->
+More integration will be necessary to make this analytics solution usuable, but Flagon's flexibility will enable us to tailor analytics data to specific air-gap use-cases (such as creating heatmaps for user behaviors on a web page as opposed to simply showing "sales funnel" type data).
