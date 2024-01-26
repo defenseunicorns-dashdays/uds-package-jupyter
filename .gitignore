@@ -1,0 +1,7 @@
+celery*
+django*
+.DS_Store
+.idea
+.code
+*.tar
+*.tar.zst
