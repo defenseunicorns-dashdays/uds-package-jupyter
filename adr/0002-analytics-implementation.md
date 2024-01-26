@@ -36,28 +36,49 @@ Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is 
 
 
 2. Matomo
+    Popular and full-featured user analytics engine based on PHP and MySQL. Tested with the Bitnami chart. Has a robust plugin system, but many features are behind a paywall (which they liberally advertise).
 
     **Pros**:
-
+    - Easy to setup with a third party Bitnami chart
+    - Has a built in easy-to-add javascript tag
+    (very similar to Google Analytics)
+    - Has a lot of features and plugins available in it's ecosystem
+    - Basic features are available offline / airgapped
 
     **Cons**:
-
+    - Most of the plugins require internet to get or a paid subscription
+    - Overall the application feels very upselly
+    - Nice to have features like heatmaps are behind paywalls
+    - (Minor) They are mostly european which not everyone likes
 
 3. Plausible
+    Simple user analytics engine based on Elixir/Phoenix and Postgres. Tested with `docker-compose` and was easy to get up and running. 
+
+    **Pros**:
+    - Simple interface
+    - Has a built in easy-to-add javascript tag
+    - Air-gappable
+
+    **Cons**:
+    - No heat maps, only pre-programmable "Goals"
+    - Dashboards and charts are pretty "vanilla"
+    - (Minor) They are mostly european which not everyone likes
+    - No official Helm chart
+
+4. Umami  
+    Umami is an privacy-focused analytics engine that deploys as a web app in a container and requires an existing Postgres or MySQL database store analytics data in. While super simple to deploy, the data provided by Umami would be more useful in the context of tracking sales funnels, turnover rates, etc.
 
     **Pros**:
 
+    - Nice web UI including dashboards and charts
+    - Simple to install in a web client (just works!)
+    - Event data is configurable and there are many customization options
 
     **Cons**:
-
-
-4. Umami
-
-    **Pros**:
-
-
-    **Cons**:
-
+    - No heatmaps
+    - Dashboards and charts are pretty "vanilla"
+    - No easy way to retrieve data that would be useful in the air-gap
+    - No official Helm chart
 
 ## Decision
 
