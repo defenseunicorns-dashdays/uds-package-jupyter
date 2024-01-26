@@ -19,36 +19,44 @@ We need to decide on an implementation to go with to provide our behavioral anal
 
 Within the context of this ADR we will evaluate the following:
 
-1. Apache Flagon
+1. Apache Flagon  
+Specifically, [flagon-useralejs](https://github.com/apache/flagon-useralejs) is a Javascript client that tracks events on a web page forwards them to a backend database. We tested this with a Loki deployment in an attempt to use existing tech within the UDS stack.
 
-**Pros**:
+    **Pros**:
+    - Event data is highly configurable with Javascript
+    - Simple to integrate in web clients
+    - `flagon-userale` can live in Gitlab's registry, making the system air-gappable
+    - Doesn't require deploying more pods in the cluster
 
-
-**Cons**:
+    **Cons**:
+    - `flagon-userale` would require code changes to be compataible with Loki
+    - Loki's NGINX gateway service has CORS issues that may require changes to the Loki Helm chart's schema
+    - Event data is raw on the backend, meaning that further processing is necessary to make the data useful
+    - No built-in dashboard capability, we would need to make our own in Grafana
 
 
 2. Matomo
 
-**Pros**:
+    **Pros**:
 
 
-**Cons**:
+    **Cons**:
 
 
 3. Plausible
 
-**Pros**:
+    **Pros**:
 
 
-**Cons**:
+    **Cons**:
 
 
 4. Umami
 
-**Pros**:
+    **Pros**:
 
 
-**Cons**:
+    **Cons**:
 
 
 ## Decision
