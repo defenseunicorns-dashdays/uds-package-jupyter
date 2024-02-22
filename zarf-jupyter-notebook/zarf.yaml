@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  description: "A Jupyter Notebook for your cluster!"
+  name: jupyter 
+  version: 0.0.1 
+  architecture: amd64
+
+components:
+  - name: jupyter
+    required: true
+    charts:
+    - name: jupyter
+      namespace: jupyter
+      localPath: chart
+      version: 3.2.1 
+    images:
+      - quay.io/jupyterhub/configurable-http-proxy:4.6.1
+      - quay.io/jupyterhub/k8s-hub:3.2.1
+      - quay.io/jupyterhub/k8s-image-awaiter:3.2.1
+      - quay.io/jupyterhub/k8s-network-tools:3.2.1
+      - quay.io/jupyterhub/k8s-secret-sync:3.2.1
+      - quay.io/jupyterhub/k8s-singleuser-sample:3.2.1
+      - registry.k8s.io/kube-scheduler:v1.26.11
+      - registry.k8s.io/pause:3.9
+      - traefik:v2.10.5
+    actions:
+      onRemove:
+        after:
+          # Starting sessions in JupyterHub will create new pods that are not managed by the helmchart
+          # When we remove the zarf package these pods will still persist
+
+          # TODO: This should remove via label selector.. but that means we need to add labels
+          - cmd: kubectl delete namespace jupyter

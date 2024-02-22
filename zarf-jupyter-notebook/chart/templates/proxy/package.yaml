@@ -1,0 +1,21 @@
+# apiVersion: uds.dev/v1alpha1
+# kind: Package
+# metadata:
+#   name: jupyter
+#   namespace: jupyter 
+# spec:
+#   network:
+#     expose:
+#       - service: proxy-public
+#         podLabels:
+#           component: proxy
+#         host: notebook
+#         gateway: tenant
+#         port: 80
+
+#     allow:
+#       - direction: Ingress
+#         remoteGenerated: Anywhere
+
+#       - direction: Egress
+#         remoteGenerate: Anywhere
