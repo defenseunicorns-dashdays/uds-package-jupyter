@@ -1,0 +1,34 @@
+kind: ZarfPackageConfig
+metadata:
+  name: upload-dependencies
+  description: Upload development dependencies for a project in an airgap.
+  architecture: amd64
+
+constants:
+  - name: PUBLISHER_IMAGE
+    value: "ghcr.io/defenseunicorns/zarf-package/dev-dependencies:209f5c61ed58083e1d4338596d4a00204094484e"
+
+components:
+  - name: upload-packages
+    required: true
+    charts:
+      - name: zarf-uploader
+        localPath: chart
+        namespace: zarf
+        version: 1.0.0
+    images:
+      - alpine:3.16
+      - ghcr.io/defenseunicorns/zarf-package/dev-dependencies:209f5c61ed58083e1d4338596d4a00204094484e
+    dataInjections:
+      - source: packages
+        target:
+          namespace: zarf
+          selector: app=package-registry-upload
+          container: package-data-loader
+          path: /packages
+        compress: true
+    actions:
+      onCreate:
+        before:
+          - cmd: |
+              pip3 download --prefer-binary --dest packages --no-cache -r ../notebooks/requirements.txt --verbose

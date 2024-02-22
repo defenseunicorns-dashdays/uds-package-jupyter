@@ -5,3 +5,4 @@ django*
 .code
 *.tar
 *.tar.zst
+zarf-uploader/packages

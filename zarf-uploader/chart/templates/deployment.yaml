@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: package-registry-build
+  namespace: zarf
+  labels:
+    app: package-registry-build
+spec:
+  selector:
+    matchLabels:
+      app: package-registry-build
+  template:
+    metadata:
+      labels:
+        app: package-registry-build
+    spec:
+      containers:
+        - name: build-container
+          image: "###ZARF_CONST_PUBLISHER_IMAGE###"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          args: ["./scripts/build.sh"]
+          volumeMounts:
+            - name: uploader-scripts
+              mountPath: /scripts
+      volumes:
+        - name: uploader-scripts
+          configMap:
+            name: uploader-scripts
+            defaultMode: 0744
