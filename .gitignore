@@ -6,3 +6,4 @@ django*
 *.tar
 *.tar.zst
 zarf-uploader/packages
+zarf-sbom
