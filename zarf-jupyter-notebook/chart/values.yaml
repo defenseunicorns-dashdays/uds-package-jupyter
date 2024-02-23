@@ -352,7 +352,7 @@ singleuser:
   cloudMetadata:
     # block set to true will append a privileged initContainer using the
     # iptables to block the sensitive metadata server at the provided ip.
-    blockWithIptables: true
+    blockWithIptables: false
     ip: 169.254.169.254
   networkPolicy:
     enabled: true
@@ -420,7 +420,7 @@ scheduling:
   userScheduler:
     enabled: true
     revisionHistoryLimit:
-    replicas: 2
+    replicas: 1
     logLevel: 4
     # plugins are configured on the user-scheduler to make us score how we
     # schedule user pods in a way to help us schedule on the most busy node. By

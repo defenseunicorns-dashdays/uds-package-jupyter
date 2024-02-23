@@ -7,7 +7,6 @@ import re
 import sys
 
 from jupyterhub.utils import url_path_join
-from kubernetes_asyncio import client
 from tornado.httpclient import AsyncHTTPClient
 
 # Make sure that modules placed in the same directory as the jupyterhub config are added to the pythonpath
@@ -186,9 +185,9 @@ if image:
 # Helm chart may want to set, we can't use the set_config_if_not_none helper
 # function as someone may want to override the default False value to None.
 #
-c.KubeSpawner.allow_privilege_escalation = get_config(
-    "singleuser.allowPrivilegeEscalation"
-)
+# c.KubeSpawner.allow_privilege_escalation = get_config(
+#     "singleuser.allowPrivilegeEscalation"
+# )
 
 # Combine imagePullSecret.create (single), imagePullSecrets (list), and
 # singleuser.image.pullSecrets (list).
@@ -421,37 +420,37 @@ set_config_if_not_none(c.Spawner, "default_url", "singleuser.defaultUrl")
 
 cloud_metadata = get_config("singleuser.cloudMetadata")
 
-if cloud_metadata.get("blockWithIptables") == True:
-    # Use iptables to block access to cloud metadata by default
-    network_tools_image_name = get_config("singleuser.networkTools.image.name")
-    network_tools_image_tag = get_config("singleuser.networkTools.image.tag")
-    network_tools_resources = get_config("singleuser.networkTools.resources")
-    ip = cloud_metadata["ip"]
-    ip_block_container = client.V1Container(
-        name="block-cloud-metadata",
-        image=f"{network_tools_image_name}:{network_tools_image_tag}",
-        command=[
-            "iptables",
-            "--append",
-            "OUTPUT",
-            "--protocol",
-            "tcp",
-            "--destination",
-            ip,
-            "--destination-port",
-            "80",
-            "--jump",
-            "DROP",
-        ],
-        security_context=client.V1SecurityContext(
-            privileged=True,
-            run_as_user=0,
-            capabilities=client.V1Capabilities(add=["NET_ADMIN"]),
-        ),
-        resources=network_tools_resources,
-    )
+# if cloud_metadata.get("blockWithIptables") == True:
+#     # Use iptables to block access to cloud metadata by default
+#     network_tools_image_name = get_config("singleuser.networkTools.image.name")
+#     network_tools_image_tag = get_config("singleuser.networkTools.image.tag")
+#     network_tools_resources = get_config("singleuser.networkTools.resources")
+#     ip = cloud_metadata["ip"]
+#     ip_block_container = client.V1Container(
+#         name="block-cloud-metadata",
+#         image=f"{network_tools_image_name}:{network_tools_image_tag}",
+#         command=[
+#             "iptables",
+#             "--append",
+#             "OUTPUT",
+#             "--protocol",
+#             "tcp",
+#             "--destination",
+#             ip,
+#             "--destination-port",
+#             "80",
+#             "--jump",
+#             "DROP",
+#         ],
+#         security_context=client.V1SecurityContext(
+#             privileged=True,
+#             run_as_user=0,
+#             capabilities=client.V1Capabilities(add=["NET_ADMIN"]),
+#         ),
+#         resources=network_tools_resources,
+#     )
 
-    c.KubeSpawner.init_containers.append(ip_block_container)
+#     c.KubeSpawner.init_containers.append(ip_block_container)
 
 
 if get_config("debug.enabled", False):

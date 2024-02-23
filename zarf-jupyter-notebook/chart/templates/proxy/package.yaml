@@ -19,3 +19,13 @@ spec:
 
       - direction: Egress
         remoteGenerate: Anywhere
+---
+# Source: istio/templates/bigbang/peerAuthentication.yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-istio-system
+  namespace: jupyter
+spec:
+  mtls:
+    mode: PERMISSIVE
