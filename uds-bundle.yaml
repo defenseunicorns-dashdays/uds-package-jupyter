@@ -1,0 +1,14 @@
+kind: UDSBundle
+metadata:
+  name: analytics
+  description: A UDS bundle for deploying the analytics stack via Apache Flagon
+  version: "0.0.1"
+
+packages:
+  - name: uploader
+    path: zarf-uploader/
+    ref: 0.0.1
+
+  - name: jupyterhub
+    path: zarf-jupyter-notebook/
+    ref: 0.0.1
