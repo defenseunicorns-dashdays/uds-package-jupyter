@@ -1,0 +1,17 @@
+tasks:
+- name: default
+  actions:
+  - task: create-packages
+  - task: create-bundle
+
+- name: create-packages
+  actions:
+  - cmd: |
+      mkdir -p build
+      uds zarf p c zarf-uploader --confirm --output build
+      uds zarf p c zarf-jupyter-notebook --confirm --output build
+      
+- name: create-bundle
+  actions:
+  - cmd: |
+      uds create --confirm

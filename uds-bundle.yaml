@@ -5,10 +5,10 @@ metadata:
   version: "0.0.1"
 
 packages:
-  - name: uploader
-    path: zarf-uploader/
+  - name: upload-dependencies
+    path: build/
     ref: 0.0.1
 
-  - name: jupyterhub
-    path: zarf-jupyter-notebook/
+  - name: jupyter
+    path: build/
     ref: 0.0.1
