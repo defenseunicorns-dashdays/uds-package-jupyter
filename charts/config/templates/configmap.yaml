@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap          # Change the name to suit your application
+  namespace: {{ .Release.Namespace }}
+data:
+  config1: |
+    data for config1          # Your actual configuration data
+  config2: |
+    data for config2          # Additional configuration data

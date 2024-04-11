@@ -2,7 +2,7 @@ apiVersion: uds.dev/v1alpha1
 kind: Package
 metadata:
   name: jupyter
-  namespace: jupyter 
+  namespace: jupyter
 spec:
   network:
     expose:
