@@ -7,7 +7,7 @@ spec:
   network:
     expose:
       - service: proxy-public
-        podLabels:
+        selector:
           component: proxy
         host: notebook
         gateway: tenant
@@ -16,6 +16,8 @@ spec:
     allow:
       - direction: Ingress
         remoteGenerated: Anywhere
+        selector:
+          component: proxy
 
       - direction: Egress
         remoteGenerate: Anywhere

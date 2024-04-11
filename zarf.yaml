@@ -13,20 +13,20 @@ components:
       namespace: jupyter
       localPath: charts/config
       version: 0.1.0
-    - name: jupyter
+    - name: jupyterhub
       namespace: jupyter
-      localPath: charts/jupyter
-      version: 3.2.1
+      url: https://hub.jupyter.org/helm-chart/
+      version: 3.3.7
+      valuesFiles:
+        - values/values.yaml
     images:
       - quay.io/jupyterhub/configurable-http-proxy:4.6.1
-      - quay.io/jupyterhub/k8s-hub:3.2.1
-      - quay.io/jupyterhub/k8s-image-awaiter:3.2.1
-      - quay.io/jupyterhub/k8s-network-tools:3.2.1
-      - quay.io/jupyterhub/k8s-secret-sync:3.2.1
-      - quay.io/jupyterhub/k8s-singleuser-sample:3.2.1
-      - registry.k8s.io/kube-scheduler:v1.26.11
+      - quay.io/jupyterhub/k8s-hub:3.3.7
+      - quay.io/jupyterhub/k8s-image-awaiter:3.3.7
+      - quay.io/jupyterhub/k8s-network-tools:3.3.7
+      - quay.io/jupyterhub/k8s-singleuser-sample:3.3.7
+      - registry.k8s.io/kube-scheduler:v1.26.15
       - registry.k8s.io/pause:3.9
-      - traefik:v2.10.5
     actions:
       onRemove:
         after:
