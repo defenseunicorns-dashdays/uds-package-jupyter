@@ -7,7 +7,7 @@ hub:
       # setup services to talk to single user pods through Istio
       services_enabled: true
       args:
-        - '--NotebookApp.allow_origin=*'
+        - --NotebookApp.allow_origin=*
 
   # we don't want to use any built in netpols
   networkPolicy:
@@ -29,7 +29,7 @@ proxy:
     extraCommandLineFlags:
       # change the origin of the Host header so istio can route to the single user pods
       - --change-origin
-  
+
   traefik:
     # we don't want to use any built in netpols
     networkPolicy:

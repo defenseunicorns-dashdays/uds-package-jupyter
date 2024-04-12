@@ -1,12 +1,36 @@
-# uds-package-analytics
-UDS package for behavioral analytics
+# UDS Jupyter Hub Zarf Package
+
+[![Latest Release](https://img.shields.io/github/v/release/defenseunicorns/uds-package-jupyter)](https://github.com/defenseunicorns/uds-package-jupyter/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/defenseunicorns/uds-package-jupyter/tag-and-release.yaml)](https://github.com/defenseunicorns/uds-package-jupyter/actions/workflows/tag-and-release.yaml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-jupyter/badge)](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-jupyter)
 
 > [!WARNING]  
-> This UDS package is an experimental Dash Days project, it is not ready for production use
+> This UDS Zarf Package is an experimental Dash Days project, it could be the basis for a maintained package but is **NOT** ready for production use.
 
+## Prerequisites
 
-## Notes
+This package relies on [UDS Core](https://github.com/defenseunicorns/uds-core) to be setup within your cluster.
+
+## Flavors
+
+| Flavor | Description | Example Creation |
+| ------ | ----------- | ---------------- |
+| upstream | Uses upstream images within the package. | `zarf package create . -f upstream` |
+
+## Releases
+
+The released packages can be found in [ghcr](https://github.com/defenseunicorns/uds-package-jupyter/pkgs/container/packages%2Fuds%2Fjupyter).
+
+## UDS Tasks (for local dev and CI)
+
+*For local dev, this requires you install [uds-cli](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install)
+
+> :white_check_mark: **Tip:** To get a list of tasks to run you can use `uds run --list`!
+
+## :unicorn: Dash Days Notes
+
 ### Easily Add Userale to Doug Translate
+
 Put the following block into `routes/+layout.svelte`:
 ```
   onMount(async () => {
@@ -26,6 +50,7 @@ Put the following block into `routes/+layout.svelte`:
 ```
 
 ### Changes to Loki
+
 To enable a web app with the userale to send data to Loki, we had to enable CORS in Loki by modifying it's NGINX `loki-gateway`. We did this by modifying the `templates/_helpers.tpl` file located in the [upstream Loki chart](https://github.com/grafana/loki/tree/main/production/helm/loki). That modification is as follows:
 ```
     location = /loki/api/v1/push {
@@ -63,6 +88,7 @@ singleBinary:
 ```
 
 ### Changes To Userale
+
 We discovered that change's to Userale will be required in order to integrate with Loki. Specifically, Userale doesn't send data in a standard JSON format, so the Userale payloads will need to be properly JSON'ified.
 
 - If we decide to go with Elastic + Logstash, these changes won't be necessary.
