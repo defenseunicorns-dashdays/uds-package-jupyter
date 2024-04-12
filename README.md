@@ -7,6 +7,9 @@
 > [!WARNING]  
 > This UDS Zarf Package is an experimental Dash Days project, it could be the basis for a maintained package but is **NOT** ready for production use.
 
+> [!NOTE]
+> To provide your own Jupyter Hub environment you should override the `singleuser.image` value in your bundle config to one specific to your environment.  You can see how the default image was built in the `singleuser-image/` folder.
+
 ## Prerequisites
 
 This package relies on [UDS Core](https://github.com/defenseunicorns/uds-core) to be setup within your cluster.
