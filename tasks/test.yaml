@@ -1,70 +1,29 @@
 tasks:
   - name: health-check
-    # actions:
-    #   - description: Gitlab Exporter Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Deployment
-    #         name: gitlab-gitlab-exporter
-    #         namespace: gitlab
-    #         condition: Available
+    actions:
+      - description: Jupyter Hub Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: hub
+            namespace: jupyter
+            condition: Available
 
-    #   - description: Gitlab Registry Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Deployment
-    #         name: gitlab-registry
-    #         namespace: gitlab
-    #         condition: Available
+      - description: Jupyter Proxy Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: proxy
+            namespace: jupyter
+            condition: Available
 
-    #   - description: Gitlab Shell Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Deployment
-    #         name: gitlab-gitlab-shell
-    #         namespace: gitlab
-    #         condition: Available
-
-    #   - description: Gitlab Toolbox Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Deployment
-    #         name: gitlab-toolbox
-    #         namespace: gitlab
-    #         condition: Available
-
-    #   - description: Gitlab Sidekiq Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Deployment
-    #         name: gitlab-sidekiq-all-in-1-v2
-    #         namespace: gitlab
-    #         condition: Available
-
-    #   - description: Gitlab Webservice Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Deployment
-    #         name: gitlab-webservice-default
-    #         namespace: gitlab
-    #         condition: Available
-
-    #   # StatefulSets don't show conditions themselves so we look for an underlying Pod
-    #   - description: Gitlab Gitaly Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Pod
-    #         name: app=gitaly
-    #         namespace: gitlab
-    #         condition: Ready
-
-    #   - description: Gitlab Migrations Health Check
-    #     wait:
-    #       cluster:
-    #         kind: Job
-    #         name: app=migrations
-    #         namespace: gitlab
-    #         condition: Complete
+      - description: Jupyter User Scheduler Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: user-scheduler
+            namespace: jupyter
+            condition: Available
 
   - name: ingress
     actions:
