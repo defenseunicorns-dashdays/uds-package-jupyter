@@ -49,11 +49,10 @@ tasks:
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
     actions:
-      - cmd: echo "Not implemented"
-      # - task: create-jh-latest-release-bundle
-      # - task: setup:k3d-test-cluster
-      # - task: deploy:test-bundle
-      # - task: create-jh-test-bundle
-      # - task: deploy:test-bundle
-      # - task: test:health-check
-      # - task: test:ingress
+      - task: create-jh-latest-release-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+      - task: create-jh-test-bundle
+      - task: deploy:test-bundle
+      - task: test:health-check
+      - task: test:ingress
