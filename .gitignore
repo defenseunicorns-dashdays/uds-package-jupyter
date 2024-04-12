@@ -7,5 +7,5 @@ django*
 *.tar.zst
 *.tar.gz
 *.whl
-*.ipynb
+*-checkpoints.ipynb
 zarf-sbom
