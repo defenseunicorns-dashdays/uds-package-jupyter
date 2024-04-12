@@ -31,4 +31,4 @@ components:
       onCreate:
         before:
           - cmd: |
-              pip3 download --prefer-binary --dest packages --no-cache -r ../notebooks/requirements.txt --verbose
+              pip3 download --prefer-binary --dest packages --no-cache -r requirements.txt --verbose
