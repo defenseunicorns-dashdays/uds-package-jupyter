@@ -1,5 +1,4 @@
 includes:
-  - cleanup: ./tasks/cleanup.yaml
   - test: ./tasks/test.yaml
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/create.yaml
   - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/lint.yaml
