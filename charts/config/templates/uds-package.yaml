@@ -11,23 +11,67 @@ spec:
           component: proxy
         host: {{ .Values.subdomain }}
         gateway: tenant
-        port: 80
+        port: 8000
 
     allow:
+      # hub
       - direction: Ingress
-        remoteGenerated: Anywhere
+        description: to-hub
+        port: 8081
+        remoteSelector:
+          hub.jupyter.org/network-access-hub: "true"
         selector:
-          component: proxy
+          app: jupyterhub
 
       - direction: Egress
-        remoteGenerate: Anywhere
----
-# Source: istio/templates/bigbang/peerAuthentication.yaml
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata:
-  name: default-istio-system
-  namespace: jupyter
-spec:
-  mtls:
-    mode: PERMISSIVE
+        port: 8081
+        remoteSelector:
+          component: hub
+        selector:
+          app: jupyterhub
+
+      - direction: Egress
+        description: singleuser-pod-spawning
+        port: 443
+        remoteGenerated: KubeAPI
+        selector:
+          component: hub
+
+      # proxy
+      - direction: Ingress
+        description: to-proxy-http
+        port: 8000
+        remoteSelector:
+          hub.jupyter.org/network-access-proxy-http: "true"
+        selector:
+          app: jupyterhub
+
+      - direction: Ingress
+        description: to-proxy-api
+        port: 8001
+        remoteSelector:
+          hub.jupyter.org/network-access-proxy-api: "true"
+        selector:
+          app: jupyterhub
+
+      - direction: Egress
+        port: 8001
+        remoteSelector:
+          component: proxy
+        selector:
+          app: jupyterhub
+
+      # singleuser server
+      - direction: Ingress
+        port: 8888
+        selector:
+          component: singleuser-server
+        remoteSelector:
+          hub.jupyter.org/network-access-singleuser: "true"
+
+      - direction: Egress
+        port: 8888
+        remoteSelector:
+          component: singleuser-server
+        selector:
+          app: jupyterhub
