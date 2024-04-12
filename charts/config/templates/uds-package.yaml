@@ -9,7 +9,7 @@ spec:
       - service: proxy-public
         selector:
           component: proxy
-        host: notebook
+        host: {{ .Values.subdomain }}
         gateway: tenant
         port: 80
 
