@@ -27,7 +27,7 @@ tasks:
 
   - name: ingress
     actions:
-      - description: Gitlab UI Health Check
+      - description: Jupyter Hub UI Health Check
         wait:
           network:
             protocol: https
