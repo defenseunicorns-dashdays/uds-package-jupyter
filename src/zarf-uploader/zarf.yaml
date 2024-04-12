@@ -2,7 +2,6 @@ kind: ZarfPackageConfig
 metadata:
   name: upload-dependencies
   description: Upload development dependencies for a project in an airgap.
-  architecture: amd64
   version: 0.0.1
 
 constants:
@@ -32,4 +31,4 @@ components:
       onCreate:
         before:
           - cmd: |
-              pip3 download --prefer-binary --dest packages --no-cache -r ../notebooks/requirements.txt --verbose
+              pip3 download --prefer-binary --dest packages --no-cache -r requirements.txt --verbose
