@@ -30,7 +30,7 @@ Within the context of this ADR we will evaluate the following:
     - Doesn't require deploying more pods in the cluster
 
     **Cons**:
-    - `flagon-userale` would require code changes to be compataible with Loki
+    - `flagon-userale` would require code changes to be compatible with Loki
     - Loki's NGINX gateway service has CORS issues that may require changes to the Loki Helm chart's schema
     - Event data is raw on the backend, meaning that further processing is necessary to make the data useful
     - No built-in dashboard capability, we would need to make our own in Grafana
@@ -90,4 +90,4 @@ Choosing Apache Flagon due to its customizability and flexibility with web analy
 
 ## Consequences
 
-More integration will be necessary to make this analytics solution usuable, but Flagon's flexibility will enable us to tailor analytics data to specific air-gap use-cases (such as creating heatmaps for user behaviors on a web page as opposed to simply showing "sales funnel" type data).
+More integration will be necessary to make this analytics solution usable, but Flagon's flexibility will enable us to tailor analytics data to specific air-gap use-cases (such as creating heatmaps for user behaviors on a web page as opposed to simply showing "sales funnel" type data).
