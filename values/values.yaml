@@ -1,0 +1,48 @@
+hub:
+  config:
+    JupyterHub:
+      admin_access: true
+      authenticator_class: dummy
+    KubeSpawner:
+      # setup services to talk to single user pods through Istio
+      services_enabled: true
+      args:
+        - '--NotebookApp.allow_origin=*'
+
+  # we don't want to use any built in netpols
+  networkPolicy:
+    enabled: false
+
+proxy:
+  service:
+    type: ClusterIP
+    # this port is disabled and re-added to make the pod port match the service port to make pepr's operator autowire the virtual service without needing a second netpol
+    disableHttpPort: true
+    extraPorts:
+      - name: http
+        port: 8000
+        targetPort: http
+  chp:
+    # we don't want to use any built in netpols
+    networkPolicy:
+      enabled: false
+    extraCommandLineFlags:
+      # change the origin of the Host header so istio can route to the single user pods
+      - --change-origin
+  
+  traefik:
+    # we don't want to use any built in netpols
+    networkPolicy:
+      enabled: false
+
+singleuser:
+  # we handle this separately and this init container violates pepr's policies
+  cloudMetadata:
+    blockWithIptables: false
+  # we don't want to use any built in netpols
+  networkPolicy:
+    enabled: false
+
+# if debugging of this chart is needed this is very helpful
+# debug:
+#   enabled: true

@@ -1,0 +1,77 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: jupyter
+  namespace: jupyter
+spec:
+  network:
+    expose:
+      - service: proxy-public
+        selector:
+          component: proxy
+        host: {{ .Values.subdomain }}
+        gateway: tenant
+        port: 8000
+
+    allow:
+      # hub
+      - direction: Ingress
+        description: to-hub
+        port: 8081
+        remoteSelector:
+          hub.jupyter.org/network-access-hub: "true"
+        selector:
+          app: jupyterhub
+
+      - direction: Egress
+        port: 8081
+        remoteSelector:
+          component: hub
+        selector:
+          app: jupyterhub
+
+      - direction: Egress
+        description: singleuser-pod-spawning
+        port: 443
+        remoteGenerated: KubeAPI
+        selector:
+          component: hub
+
+      # proxy
+      - direction: Ingress
+        description: to-proxy-http
+        port: 8000
+        remoteSelector:
+          hub.jupyter.org/network-access-proxy-http: "true"
+        selector:
+          app: jupyterhub
+
+      - direction: Ingress
+        description: to-proxy-api
+        port: 8001
+        remoteSelector:
+          hub.jupyter.org/network-access-proxy-api: "true"
+        selector:
+          app: jupyterhub
+
+      - direction: Egress
+        port: 8001
+        remoteSelector:
+          component: proxy
+        selector:
+          app: jupyterhub
+
+      # singleuser server
+      - direction: Ingress
+        port: 8888
+        selector:
+          component: singleuser-server
+        remoteSelector:
+          hub.jupyter.org/network-access-singleuser: "true"
+
+      - direction: Egress
+        port: 8888
+        remoteSelector:
+          component: singleuser-server
+        selector:
+          app: jupyterhub
