@@ -2,7 +2,6 @@ kind: ZarfPackageConfig
 metadata:
   name: upload-dependencies
   description: Upload development dependencies for a project in an airgap.
-  architecture: amd64
   version: 0.0.1
 
 constants:

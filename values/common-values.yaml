@@ -42,6 +42,10 @@ singleuser:
   # we don't want to use any built in netpols
   networkPolicy:
     enabled: false
+  # custom image with our own Python pkgs
+  image:
+    name: ghcr.io/defenseunicorns/uds-package-jupyter/singleuser
+    tag: 0.1.0
 
 # if debugging of this chart is needed this is very helpful
 # debug:
