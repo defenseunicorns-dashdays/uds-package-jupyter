@@ -43,5 +43,6 @@ singleuser:
   networkPolicy:
     enabled: false
 
-debug:
-  enabled: true
+# if debugging of this chart is needed this is very helpful
+# debug:
+#   enabled: true
