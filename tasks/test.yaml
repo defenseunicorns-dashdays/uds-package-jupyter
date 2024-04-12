@@ -1,0 +1,35 @@
+tasks:
+  - name: health-check
+    actions:
+      - description: Jupyter Hub Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: hub
+            namespace: jupyter
+            condition: Available
+
+      - description: Jupyter Proxy Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: proxy
+            namespace: jupyter
+            condition: Available
+
+      - description: Jupyter User Scheduler Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: user-scheduler
+            namespace: jupyter
+            condition: Available
+
+  - name: ingress
+    actions:
+      - description: Jupyter Hub UI Health Check
+        wait:
+          network:
+            protocol: https
+            address: jupyter.uds.dev
+            code: 200

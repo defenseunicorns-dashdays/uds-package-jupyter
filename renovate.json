@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "github>defenseunicorns/uds-common//config/renovate.json5",
+    ":semanticCommits",
+    ":semanticPrefixFixDepsChoreOthers",
+    "group:all",
+    "replacements:all",
+    "workarounds:all"
+  ],
+  "packageRules": [
+    {
+      "groupName": "Jupyter Hub Support Dependencies",
+      "labels": ["support-deps"],
+      "commitMessageTopic": "support-deps",
+      "packagePatterns": ["*"]
+    },
+    {
+      "groupName": "Jupyter Hub Package Dependencies",
+      "labels": ["package-deps"],
+      "commitMessageTopic": "package-deps",
+      "matchDatasources": ["docker", "helm", "git-tags"]
+    }
+  ]
+}

@@ -5,5 +5,7 @@ django*
 .code
 *.tar
 *.tar.zst
-zarf-uploader/packages
+*.tar.gz
+*.whl
+*-checkpoints.ipynb
 zarf-sbom

@@ -7,7 +7,7 @@ metadata:
 
 constants:
   - name: PUBLISHER_IMAGE
-    value: "ghcr.io/defenseunicorns/zarf-package/dev-dependencies:209f5c61ed58083e1d4338596d4a00204094484e"
+    value: ghcr.io/defenseunicorns/zarf-package/dev-dependencies:209f5c61ed58083e1d4338596d4a00204094484e
 
 components:
   - name: upload-packages

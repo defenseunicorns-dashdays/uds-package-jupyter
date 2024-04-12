@@ -1,0 +1,11 @@
+name: Metadata
+
+on:
+  pull_request:
+    branches: [main]
+    types: [milestoned, opened, edited, synchronize]
+
+jobs:
+  validate:
+    name: Validate
+    uses: defenseunicorns/uds-common/.github/workflows/commitlint.yaml@5e4414dc25302739063bb58aa96b8afef5be9851 # v0.3.10

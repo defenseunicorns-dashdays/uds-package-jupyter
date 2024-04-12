@@ -1,17 +1,59 @@
-tasks:
-- name: default
-  actions:
-  - task: create-packages
-  - task: create-bundle
+includes:
+  - test: ./tasks/test.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/setup.yaml
 
-- name: create-packages
-  actions:
-  - cmd: |
-      mkdir -p build
-      uds zarf p c zarf-uploader --confirm --output build
-      uds zarf p c zarf-jupyter-notebook --confirm --output build
-      
-- name: create-bundle
-  actions:
-  - cmd: |
-      uds create --confirm
+tasks:
+  - name: default
+    description: Create K3D Cluster with UDS-Core + Jupyter Hub
+    actions:
+      - task: create-jh-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+
+  - name: create-jh-package
+    description: Create UDS Jupyter Hub Package
+    actions:
+      - task: create:package
+        with:
+          options: --skip-sbom
+
+  - name: create-jh-test-bundle
+    description: Create a local UDS Jupyter Hub bundle
+    actions:
+      - task: create-jh-package
+      - task: create:test-bundle
+
+  - name: create-jh-latest-release-bundle
+    description: Create UDS Jupyter Hub bundle with dependencies based on the latest release
+    actions:
+      - task: pull:latest-package-release
+        with:
+          spoof_release: "true"
+      - task: create:test-bundle
+
+# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
+
+  - name: test-package
+    description: Test the Jupyter Hub package from the current branch
+    actions:
+      - task: create-jh-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+      - task: test:health-check
+      - task: test:ingress
+
+  - name: test-upgrade
+    description: Test an upgrade from the latest released package to the current branch
+    actions:
+      - cmd: echo "Not implemented"
+      # - task: create-jh-latest-release-bundle
+      # - task: setup:k3d-test-cluster
+      # - task: deploy:test-bundle
+      # - task: create-jh-test-bundle
+      # - task: deploy:test-bundle
+      # - task: test:health-check
+      # - task: test:ingress
