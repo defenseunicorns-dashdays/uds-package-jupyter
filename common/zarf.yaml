@@ -24,4 +24,4 @@ components:
           # Starting sessions in JupyterHub will create new pods that are not managed by the helmchart
           # When we remove the zarf package these pods will still persist
           # TODO: This should remove via label selector.. but that means we need to add labels
-          - cmd: kubectl delete namespace jupyter
+          - cmd: ./zarf tools kubectl delete namespace jupyter
