@@ -4,7 +4,7 @@ metadata:
   description: UDS Jupyter Hub Zarf Package
   name: jupyter
   # x-release-please-start-version
-  version: 3.3.7-uds.0
+  version: 3.3.7-uds.1
   # x-release-please-end
 
 components:
